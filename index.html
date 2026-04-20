@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0f1923">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NEA Tracker">
+<title>NEA Study Tracker</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+<!-- HEADER -->
+<header id="app-header">
+  <div class="header-left">
+    <div class="anchor-logo">⚓</div>
+    <div>
+      <div class="app-title">NEA TRACKER</div>
+      <div class="app-sub">Indian Navy Entry Artificer</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button id="dark-toggle" title="Toggle theme">🌙</button>
+    <button id="reset-btn" title="Reset progress">↺</button>
+  </div>
+</header>
+
+<!-- OVERALL PROGRESS BANNER -->
+<div id="overall-banner">
+  <div class="banner-left">
+    <div class="overall-label">OVERALL PROGRESS</div>
+    <div class="overall-pct" id="overall-pct">0%</div>
+    <div class="overall-count" id="overall-count">0 / 0 topics done</div>
+  </div>
+  <div class="banner-right">
+    <div class="streak-box">
+      <div class="streak-num" id="streak-num">0</div>
+      <div class="streak-label">Day Streak 🔥</div>
+    </div>
+  </div>
+</div>
+<div class="overall-bar-wrap">
+  <div class="overall-bar" id="overall-bar"></div>
+</div>
+
+<!-- TARGET DATE -->
+<div id="target-section">
+  <div class="target-inner">
+    <label for="target-date">🎯 Target Exam Date:</label>
+    <input type="date" id="target-date">
+    <div id="days-left"></div>
+  </div>
+</div>
+
+<!-- MOTIVATIONAL TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- TABS -->
+<div id="tab-bar">
+  <button class="tab active" data-tab="syllabus">📚 Syllabus</button>
+  <button class="tab" data-tab="planner">📅 Planner</button>
+  <button class="tab" data-tab="stats">📊 Stats</button>
+</div>
+
+<!-- ====== SYLLABUS TAB ====== -->
+<div id="tab-syllabus" class="tab-content active">
+
+  <!-- PAPER I -->
+  <div class="paper-card" id="paper-1">
+    <div class="paper-header" onclick="togglePaper('paper-1')">
+      <div class="paper-title-row">
+        <span class="paper-badge p1">P1</span>
+        <span class="paper-name">English &amp; General Knowledge</span>
+      </div>
+      <div class="paper-meta">
+        <span class="paper-marks">100 Marks</span>
+        <div class="paper-prog-wrap"><div class="paper-prog" id="prog-paper-1"></div></div>
+        <span class="paper-pct" id="pct-paper-1">0%</span>
+        <span class="paper-chevron">▼</span>
+      </div>
+    </div>
+    <div class="paper-body" id="body-paper-1">
+
+      <div class="subject-block">
+        <div class="subject-title">📝 ENGLISH <span class="subject-marks">(70 Marks)</span></div>
+
+        <div class="topic-group" data-group="eng-comp">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>1. Comprehension</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="e1">Comprehension with short question answers</div>
+            <div class="topic-item" data-id="e2">Testing deeper interpretation</div>
+            <div class="topic-item" data-id="e3">Drawing inferences from passages</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="eng-tenses">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>2. Tenses &amp; Voices</span><span class="g-marks">30 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="e4">Degree of Comparison</div>
+            <div class="topic-item" data-id="e5">Tenses (all forms)</div>
+            <div class="topic-item" data-id="e6">Direct and Indirect Speech</div>
+            <div class="topic-item" data-id="e7">Active and Passive Voice</div>
+            <div class="topic-item" data-id="e8">Correct usage of prepositions</div>
+            <div class="topic-item" data-id="e9">Use of idioms and phrases</div>
+            <div class="topic-item" data-id="e10">Conjunction usage</div>
+            <div class="topic-item" data-id="e11">Words and their usage</div>
+            <div class="topic-item" data-id="e12">Punctuation</div>
+            <div class="topic-item" data-id="e13">Correction of sentences</div>
+            <div class="topic-item" data-id="e14">Transformation of sentences</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="eng-grammar">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>3. Applied Grammar</span><span class="g-marks">25 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="e15">Grammatical structures in meaningful contexts</div>
+            <div class="topic-item" data-id="e16">Gap filling</div>
+            <div class="topic-item" data-id="e17">Dialogue completion</div>
+            <div class="topic-item" data-id="e18">Sentence transformation</div>
+            <div class="topic-item" data-id="e19">Changing narration of given input</div>
+            <div class="topic-item" data-id="e20">Reordering of words and sentences</div>
+            <div class="topic-item" data-id="e21">Editing and error correction</div>
+            <div class="topic-item" data-id="e22">Synonyms and antonyms</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="eng-idioms">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>4. Idioms and Phrases</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="e23">Common idioms and their meanings</div>
+            <div class="topic-item" data-id="e24">Phrase usage in sentences</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="eng-vocab">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>5. Vocabulary</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="e25">Word meanings and usage</div>
+            <div class="topic-item" data-id="e26">One-word substitution</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subject-block">
+        <div class="subject-title">🌍 GENERAL KNOWLEDGE <span class="subject-marks">(30 Marks)</span></div>
+
+        <div class="topic-group" data-group="gk-constitution">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>6. Indian Constitution &amp; Administration</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g1">Constitution of India – overview</div>
+            <div class="topic-item" data-id="g2">Rights in the Indian Constitution</div>
+            <div class="topic-item" data-id="g3">Election and Representation</div>
+            <div class="topic-item" data-id="g4">Executive, Legislature, Judiciary</div>
+            <div class="topic-item" data-id="g5">Federalism and Local Governments</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="gk-military">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>7. Basic Military History</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g6">World War I – causes and outcome</div>
+            <div class="topic-item" data-id="g7">World War II – causes and outcome</div>
+            <div class="topic-item" data-id="g8">Indo-Pak War 1947</div>
+            <div class="topic-item" data-id="g9">Indo-Pak War 1965</div>
+            <div class="topic-item" data-id="g10">Indo-Pak War 1971</div>
+            <div class="topic-item" data-id="g11">Kargil War 1999</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="gk-current">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>8. Topics of Current Interest</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g12">National current affairs</div>
+            <div class="topic-item" data-id="g13">International current affairs</div>
+            <div class="topic-item" data-id="g14">Defence and Navy related news</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="gk-abbr">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>9. Common Abbreviations</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g15">Military abbreviations</div>
+            <div class="topic-item" data-id="g16">General / Science abbreviations</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="gk-science">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>10. Recent Developments – Science &amp; Tech</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g17">Science and technology developments</div>
+            <div class="topic-item" data-id="g18">Space technology and ISRO</div>
+          </div>
+        </div>
+
+        <div class="topic-group" data-group="gk-navy">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>11. Indian Navy Awareness</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+          </div>
+          <div class="group-body">
+            <div class="topic-item" data-id="g19">Indian Navy structure and ranks</div>
+            <div class="topic-item" data-id="g20">Naval operations and vessels</div>
+            <div class="topic-item" data-id="g21">Naval commands and bases</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER II -->
+  <div class="paper-card" id="paper-2">
+    <div class="paper-header" onclick="togglePaper('paper-2')">
+      <div class="paper-title-row">
+        <span class="paper-badge p2">P2</span>
+        <span class="paper-name">Mathematics</span>
+      </div>
+      <div class="paper-meta">
+        <span class="paper-marks">100 Marks</span>
+        <div class="paper-prog-wrap"><div class="paper-prog" id="prog-paper-2"></div></div>
+        <span class="paper-pct" id="pct-paper-2">0%</span>
+        <span class="paper-chevron">▼</span>
+      </div>
+    </div>
+    <div class="paper-body" id="body-paper-2">
+
+      <div class="topic-group" data-group="m-trig">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>1. Trigonometry</span><span class="g-marks">15 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m1">Trigonometric ratios of angles</div>
+          <div class="topic-item" data-id="m2">Values and relationships between ratios</div>
+          <div class="topic-item" data-id="m3">Conversion of angles (measures)</div>
+          <div class="topic-item" data-id="m4">Problems on heights and distances</div>
+          <div class="topic-item" data-id="m5">Positive and negative angles</div>
+          <div class="topic-item" data-id="m6">Domains and range of trigonometric functions</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-algebra">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>2. Algebra</span><span class="g-marks">17 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m7">Principle of Mathematical Induction</div>
+          <div class="topic-item" data-id="m8">Application of induction – natural numbers</div>
+          <div class="topic-item" data-id="m9">Linear Inequalities – one variable</div>
+          <div class="topic-item" data-id="m10">Linear Inequalities – two variables (graphical)</div>
+          <div class="topic-item" data-id="m11">Permutations – fundamental counting principle</div>
+          <div class="topic-item" data-id="m12">Combinations – formula and applications</div>
+          <div class="topic-item" data-id="m13">Binomial Theorem – Pascal's triangle</div>
+          <div class="topic-item" data-id="m14">General and middle term in binomial expansion</div>
+          <div class="topic-item" data-id="m15">Arithmetic Progression (AP) – general term, sum</div>
+          <div class="topic-item" data-id="m16">Geometric Progression (GP) – general term, sum</div>
+          <div class="topic-item" data-id="m17">Infinite GP and its sum</div>
+          <div class="topic-item" data-id="m18">AM and GM – relationship</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-coord">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>3. Coordinate Geometry</span><span class="g-marks">15 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m19">Straight lines – 2D geometry basics</div>
+          <div class="topic-item" data-id="m20">Shifting of origin</div>
+          <div class="topic-item" data-id="m21">Slope of a line – parallel and perpendicular</div>
+          <div class="topic-item" data-id="m22">Forms of equations: point-slope, two-point, intercept, normal</div>
+          <div class="topic-item" data-id="m23">General equation of a line, family of lines</div>
+          <div class="topic-item" data-id="m24">Distance of a point from a line</div>
+          <div class="topic-item" data-id="m25">Conic Sections – Circle: standard equation</div>
+          <div class="topic-item" data-id="m26">Conic Sections – Parabola: standard equation</div>
+          <div class="topic-item" data-id="m27">Conic Sections – Ellipse: standard equation</div>
+          <div class="topic-item" data-id="m28">Conic Sections – Hyperbola: standard equation</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-calc">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>4. Calculus</span><span class="g-marks">20 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m29">Limits of functions</div>
+          <div class="topic-item" data-id="m30">Derivatives – definition and geometric meaning</div>
+          <div class="topic-item" data-id="m31">Derivatives of polynomial functions</div>
+          <div class="topic-item" data-id="m32">Derivatives of trigonometric functions</div>
+          <div class="topic-item" data-id="m33">Fundamental theorem of Calculus</div>
+          <div class="topic-item" data-id="m34">Continuity and differentiability</div>
+          <div class="topic-item" data-id="m35">Chain rule</div>
+          <div class="topic-item" data-id="m36">Derivatives of composite functions</div>
+          <div class="topic-item" data-id="m37">Derivatives of inverse trigonometric functions</div>
+          <div class="topic-item" data-id="m38">Exponential and logarithmic functions</div>
+          <div class="topic-item" data-id="m39">Derivatives of parametric forms</div>
+          <div class="topic-item" data-id="m40">Integration as inverse of differentiation</div>
+          <div class="topic-item" data-id="m41">Integration by substitution</div>
+          <div class="topic-item" data-id="m42">Integration by partial fractions</div>
+          <div class="topic-item" data-id="m43">Integration by parts</div>
+          <div class="topic-item" data-id="m44">Definite integrals and limit of sum</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-stats">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>5. Statistics &amp; Probability</span><span class="g-marks">15 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m45">Mean deviation</div>
+          <div class="topic-item" data-id="m46">Variance and standard deviation (ungrouped)</div>
+          <div class="topic-item" data-id="m47">Variance and standard deviation (grouped data)</div>
+          <div class="topic-item" data-id="m48">Frequency distribution analysis</div>
+          <div class="topic-item" data-id="m49">Probability – approach and outcomes</div>
+          <div class="topic-item" data-id="m50">Exhaustive and mutually exclusive events</div>
+          <div class="topic-item" data-id="m51">Conditional probability</div>
+          <div class="topic-item" data-id="m52">Independent events</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-matrix">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>6. Matrices &amp; Determinants</span><span class="g-marks">10 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m53">Concept, notation, order, equality of matrices</div>
+          <div class="topic-item" data-id="m54">Types of matrices – zero, transpose, symmetric</div>
+          <div class="topic-item" data-id="m55">Addition, multiplication, scalar multiplication</div>
+          <div class="topic-item" data-id="m56">Properties – commutativity and non-commutativity</div>
+          <div class="topic-item" data-id="m57">Elementary row and column operations</div>
+          <div class="topic-item" data-id="m58">Determinant of square matrix (upto 3×3)</div>
+          <div class="topic-item" data-id="m59">Properties of determinants, minors, cofactors</div>
+          <div class="topic-item" data-id="m60">Area of triangle using determinants</div>
+          <div class="topic-item" data-id="m61">Adjoint and inverse of a square matrix</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="m-number">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>7. Number System</span><span class="g-marks">08 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="m62">Decimal number system</div>
+          <div class="topic-item" data-id="m63">Binary number system</div>
+          <div class="topic-item" data-id="m64">Binary to Decimal conversion</div>
+          <div class="topic-item" data-id="m65">Decimal to Binary conversion</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER III -->
+  <div class="paper-card" id="paper-3">
+    <div class="paper-header" onclick="togglePaper('paper-3')">
+      <div class="paper-title-row">
+        <span class="paper-badge p3">P3</span>
+        <span class="paper-name">General Science</span>
+      </div>
+      <div class="paper-meta">
+        <span class="paper-marks">100 Marks</span>
+        <div class="paper-prog-wrap"><div class="paper-prog" id="prog-paper-3"></div></div>
+        <span class="paper-pct" id="pct-paper-3">0%</span>
+        <span class="paper-chevron">▼</span>
+      </div>
+    </div>
+    <div class="paper-body" id="body-paper-3">
+
+      <div class="topic-group" data-group="s-meas">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>1. Physical World &amp; Measurement</span><span class="g-marks">08 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s1">Units of measurement – SI units</div>
+          <div class="topic-item" data-id="s2">Fundamental and derived units</div>
+          <div class="topic-item" data-id="s3">Length, mass and time measurements</div>
+          <div class="topic-item" data-id="s4">Accuracy and precision of instruments</div>
+          <div class="topic-item" data-id="s5">Errors in measurement and significant figures</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-kine">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>2. Kinematics</span><span class="g-marks">10 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s6">Frame of reference, motion in straight line</div>
+          <div class="topic-item" data-id="s7">Position-time graph, speed and velocity</div>
+          <div class="topic-item" data-id="s8">Uniform and non-uniform motion</div>
+          <div class="topic-item" data-id="s9">Uniformly accelerated motion</div>
+          <div class="topic-item" data-id="s10">Scalar and vector quantities</div>
+          <div class="topic-item" data-id="s11">Vector addition, subtraction, multiplication</div>
+          <div class="topic-item" data-id="s12">Relative velocity</div>
+          <div class="topic-item" data-id="s13">Projectile motion</div>
+          <div class="topic-item" data-id="s14">Uniform circular motion</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-force">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>3. Motion, Force &amp; Work</span><span class="g-marks">10 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s15">Thrust and pressure</div>
+          <div class="topic-item" data-id="s16">Archimedes' principle and buoyancy</div>
+          <div class="topic-item" data-id="s17">Relative density</div>
+          <div class="topic-item" data-id="s18">Work done by a force</div>
+          <div class="topic-item" data-id="s19">Energy – kinetic and potential</div>
+          <div class="topic-item" data-id="s20">Power</div>
+          <div class="topic-item" data-id="s21">Law of conservation of energy</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-grav">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>4. Gravitation</span><span class="g-marks">08 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s22">Kepler's laws of planetary motion</div>
+          <div class="topic-item" data-id="s23">Universal law of gravitation</div>
+          <div class="topic-item" data-id="s24">Acceleration due to gravity – variation with altitude and depth</div>
+          <div class="topic-item" data-id="s25">Gravitational potential energy</div>
+          <div class="topic-item" data-id="s26">Escape velocity</div>
+          <div class="topic-item" data-id="s27">Orbital velocity of a satellite</div>
+          <div class="topic-item" data-id="s28">Geo-stationary satellites</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-osc">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>5. Oscillations &amp; Waves</span><span class="g-marks">12 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s29">Periodic motion – period, frequency, displacement</div>
+          <div class="topic-item" data-id="s30">Simple Harmonic Motion (SHM) – equation, phase</div>
+          <div class="topic-item" data-id="s31">Energy in SHM – kinetic and potential</div>
+          <div class="topic-item" data-id="s32">Simple pendulum</div>
+          <div class="topic-item" data-id="s33">Free, forced and damped oscillations, resonance</div>
+          <div class="topic-item" data-id="s34">Transverse and longitudinal waves</div>
+          <div class="topic-item" data-id="s35">Superposition of waves, reflection, standing waves</div>
+          <div class="topic-item" data-id="s36">Speed of wave motion – strings and organ pipes</div>
+          <div class="topic-item" data-id="s37">Beats, Doppler effect</div>
+          <div class="topic-item" data-id="s38">Speed of sound, range of hearing, ultrasound, SONAR</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-optics">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>6. Optics</span><span class="g-marks">12 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s39">Reflection of light – laws, refractive index</div>
+          <div class="topic-item" data-id="s40">Refraction of light – laws</div>
+          <div class="topic-item" data-id="s41">Spherical mirrors – image formation, mirror formula</div>
+          <div class="topic-item" data-id="s42">Magnification</div>
+          <div class="topic-item" data-id="s43">Refraction at curved surfaces</div>
+          <div class="topic-item" data-id="s44">Lens formula and magnification</div>
+          <div class="topic-item" data-id="s45">Power of a lens</div>
+          <div class="topic-item" data-id="s46">Human eye – functioning and defects</div>
+          <div class="topic-item" data-id="s47">Dispersion of light through prism</div>
+          <div class="topic-item" data-id="s48">Scattering of light – applications in daily life</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-elec">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>7. Current Electricity</span><span class="g-marks">15 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s49">Electric current, flow of charges in conductor</div>
+          <div class="topic-item" data-id="s50">Ohm's law, V-I characteristics</div>
+          <div class="topic-item" data-id="s51">Electrical resistance, resistivity and conductivity</div>
+          <div class="topic-item" data-id="s52">Carbon resistors, colour code</div>
+          <div class="topic-item" data-id="s53">Series and parallel combinations of resistors</div>
+          <div class="topic-item" data-id="s54">Temperature dependence of resistance</div>
+          <div class="topic-item" data-id="s55">Internal resistance, EMF, cells in series and parallel</div>
+          <div class="topic-item" data-id="s56">Kirchhoff's laws and applications</div>
+          <div class="topic-item" data-id="s57">Wheatstone bridge, Metre bridge</div>
+          <div class="topic-item" data-id="s58">Potentiometer – principle and uses</div>
+          <div class="topic-item" data-id="s59">Coulomb's law, Electric field, lines of force</div>
+          <div class="topic-item" data-id="s60">Heating effect of electric current</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-heat">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>8. Heat</span><span class="g-marks">05 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s61">Hot and cold bodies, temperature measurement</div>
+          <div class="topic-item" data-id="s62">Units of heat</div>
+          <div class="topic-item" data-id="s63">Thermal expansion of solids and fluids</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-mag">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>9. Magnetic Effects &amp; Magnetism</span><span class="g-marks">12 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s64">Concept of magnetic field</div>
+          <div class="topic-item" data-id="s65">Biot-Savart law, Ampere's law</div>
+          <div class="topic-item" data-id="s66">Straight and toroidal solenoids</div>
+          <div class="topic-item" data-id="s67">Force on moving charge in magnetic field</div>
+          <div class="topic-item" data-id="s68">Cyclotron</div>
+          <div class="topic-item" data-id="s69">Force on current-carrying conductor</div>
+          <div class="topic-item" data-id="s70">Force between two parallel conductors</div>
+          <div class="topic-item" data-id="s71">Earth's magnetic field and magnetic elements</div>
+          <div class="topic-item" data-id="s72">Para, dia and ferro magnetic substances</div>
+          <div class="topic-item" data-id="s73">Electromagnets – factors affecting strength</div>
+          <div class="topic-item" data-id="s74">Electromagnetic induction</div>
+          <div class="topic-item" data-id="s75">Alternating current, AC generators</div>
+          <div class="topic-item" data-id="s76">LC &amp; R in series, transformers</div>
+        </div>
+      </div>
+
+      <div class="topic-group" data-group="s-comm">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>10. Communication Systems</span><span class="g-marks">08 Marks</span><span class="g-chev">›</span>
+        </div>
+        <div class="group-body">
+          <div class="topic-item" data-id="s77">Types of communication systems</div>
+          <div class="topic-item" data-id="s78">Modulation (AM, FM)</div>
+          <div class="topic-item" data-id="s79">Digital communication and quantization</div>
+          <div class="topic-item" data-id="s80">Data and document transmission</div>
+          <div class="topic-item" data-id="s81">Communication channels</div>
+          <div class="topic-item" data-id="s82">Space and satellite communication</div>
+          <div class="topic-item" data-id="s83">Line and optical communication</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end tab-syllabus -->
+
+<!-- ====== PLANNER TAB ====== -->
+<div id="tab-planner" class="tab-content">
+  <div class="planner-card">
+    <div class="planner-title">📅 Daily Study Planner</div>
+    <div class="planner-date-label" id="today-label"></div>
+
+    <div class="planner-add-row">
+      <select id="plan-subject">
+        <option value="">Select Paper</option>
+        <option value="p1">Paper I – English &amp; GK</option>
+        <option value="p2">Paper II – Mathematics</option>
+        <option value="p3">Paper III – Science</option>
+      </select>
+      <input type="text" id="plan-topic" placeholder="Topic / task for today...">
+      <button id="plan-add-btn">Add</button>
+    </div>
+
+    <div id="plan-list"></div>
+
+    <div class="planner-tip">💡 Tip: Complete at least 3 topics daily to build your streak!</div>
+  </div>
+
+  <div class="planner-card" style="margin-top:12px">
+    <div class="planner-title">📊 Remaining by Paper</div>
+    <div id="remaining-list"></div>
+  </div>
+</div>
+
+<!-- ====== STATS TAB ====== -->
+<div id="tab-stats" class="tab-content">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">Total Topics</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num green" id="stat-done">0</div>
+      <div class="stat-label">Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num orange" id="stat-left">0</div>
+      <div class="stat-label">Remaining</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num gold" id="stat-streak">0</div>
+      <div class="stat-label">Day Streak 🔥</div>
+    </div>
+  </div>
+
+  <div class="paper-stats-list" id="paper-stats-list"></div>
+
+  <div class="stats-note" id="stats-motivation"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
