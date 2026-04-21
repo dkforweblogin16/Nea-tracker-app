@@ -363,3 +363,23 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('SW error', err));
   });
 }
+
+// Payment Integration 
+function payNow() {
+  var options = {
+    key: "YOUR_KEY_ID",
+    amount: 9900,
+    currency: "INR",
+    name: "NEA Tracker",
+    description: "Premium Access",
+
+    handler: function (response) {
+      localStorage.setItem("premium", "true");
+      alert("Payment Successful! Premium Unlocked 🎉");
+      location.reload();
+    }
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
